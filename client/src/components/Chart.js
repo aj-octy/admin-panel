@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer ,Tooltip} from 'recharts';
 import Title from './Title';
 
-// Generate Sales Data
+// Generate Data
 function createData(time, likes) {
   return { time, likes };
 }
@@ -36,6 +36,7 @@ export default function Chart() {
             left: 24,
           }}
         >
+          <Tooltip />
           <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
@@ -43,7 +44,7 @@ export default function Chart() {
               position="left"
               style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
             >
-              Likes ($)
+              Likes
             </Label>
           </YAxis>
           <Line type="monotone" dataKey="likes" stroke={theme.palette.primary.main} dot={false} />
