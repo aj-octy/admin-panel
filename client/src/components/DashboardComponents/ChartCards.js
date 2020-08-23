@@ -7,14 +7,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {LineChart,BarChart,AreaChart,Area, Bar,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer,} from 'recharts';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles({
     cardColor: {
         // backgroundColor: '#f44336',
         textAlign: 'center',
-        // marginRight: '150'
+    },
+    card: {
+        borderRadius:'10px',
+        borderBottom: '2px solid #F2FBF7'
     }
   });
 
@@ -49,7 +50,7 @@ export default function CardChart() {
   return (
     <Grid container spacing={3} className={classes.cardColor}>
         <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card className={classes.card}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         Post
@@ -70,7 +71,7 @@ export default function CardChart() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card className={classes.card}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         Post
@@ -91,7 +92,7 @@ export default function CardChart() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card className={classes.card}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         Post
@@ -112,7 +113,7 @@ export default function CardChart() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card className={classes.card}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         Post

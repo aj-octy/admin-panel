@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -11,37 +10,32 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Totalviews from './Totalviews';
-import Userlist from './Userlist';
-import ChartCards from './ChartCards'
+import { mainListItems, secondaryListItems } from './DashboardComponents/listItems';
+import HomeFragments from './Fragments/HomeFragments'
+import CreatePost from './Fragments/CreatePost'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        bla bla bla.com
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import PersonIcon from '@material-ui/icons/Person';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import  { useState, useEffect } from "react";
+
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    backgroundColor:'#F4F5F7'
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -103,19 +97,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     overflow: 'auto',
   },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
 }));
 
 export default function Dashboard() {
@@ -127,7 +108,22 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const [fragment, setfragment] = useState("HOME")
+  const loadFragment = () =>{
+    switch (fragment){
+       
+        case "HOME":
+          return <HomeFragments/>
+        
+        case "CREATEPOST":
+          return <CreatePost/>
+        default:
+          break;
+      
+    }
+  }
+  // const [state, setstate] = useState(initialState)
 
   return (
     <div className={classes.root}>
@@ -166,46 +162,49 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        {/* <List>{mainListItems}</List> */}
+        <Router>
+  <div>
+    
+      <ListItem button onClick={e=>setfragment("HOME")}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+
+      <ListItem button onClick={e=>setfragment("CREATEPOST")}>
+        <ListItemIcon>
+          <NoteAddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Create Blog" />
+      </ListItem>
+    
+    <ListItem button>
+      <ListItemIcon>
+        <ViewListIcon />
+      </ListItemIcon>
+      <ListItemText primary="View Blogs" />
+    </ListItem>
+
+    <ListItem button>
+      <ListItemIcon>
+        <PersonIcon />
+      </ListItemIcon>
+      <ListItemText primary="User Profile" />
+    </ListItem>
+    
+  </div>
+  </Router>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-
-            {/* Chart Card */}
-            <Grid item xs={12} lg={12}>
-              {/* <Paper> */}
-                <ChartCards />
-              {/* </Paper> */}
-            </Grid>
-
-
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Totalviews />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Userlist />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
+        {/* <HomeFragments /> */}
+        {/* <CreatePost /> */}
+        {loadFragment()}
+        
       </main>
     </div>
   );
